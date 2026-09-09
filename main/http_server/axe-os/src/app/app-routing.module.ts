@@ -15,7 +15,7 @@ import { OnboardingWizardComponent } from './components/onboarding-wizard/onboar
 import { AppLayoutComponent } from './layout/app.layout.component';
 import { ApModeGuard } from './guards/ap-mode.guard';
 
-const TITLE_PREFIX = 'AxeOS';
+const TITLE_PREFIX = 'Bitmern OS';
 
 const routes: Routes = [
   {
