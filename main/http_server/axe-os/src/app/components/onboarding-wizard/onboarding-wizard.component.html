@@ -1,0 +1,269 @@
+<div class="onboarding">
+  <div class="onboarding__card">
+    <h1 class="onboarding__title">Bitmern setup</h1>
+
+    <!-- Expectation banner before Step 1 (and visible throughout early steps) -->
+    @if (step < 3) {
+      <div class="onboarding__banner" role="status">
+        Setup takes about 60 seconds. Your phone will briefly lose internet while it talks to the miner — that's normal, it comes back automatically when setup finishes.
+      </div>
+    }
+
+    <div class="onboarding__steps" aria-label="Setup progress">
+      <span class="onboarding__step-dot" [class.active]="step === 1" [class.done]="step > 1">1</span>
+      <span class="onboarding__step-line" [class.done]="step > 1"></span>
+      <span class="onboarding__step-dot" [class.active]="step === 2" [class.done]="step > 2">2</span>
+      <span class="onboarding__step-line" [class.done]="step > 2"></span>
+      <span class="onboarding__step-dot" [class.active]="step === 3">3</span>
+    </div>
+
+    <!-- Step 1: Wi-Fi -->
+    @if (step === 1) {
+      <section class="onboarding__section">
+        <h2>Step 1 — Wi-Fi</h2>
+        <p class="onboarding__hint">
+          Connect the miner to your <strong>2.4 GHz</strong> network only. 5 GHz is not supported.
+        </p>
+
+        <form [formGroup]="wifiForm" class="onboarding__form">
+          <label class="onboarding__label" for="ob-ssid">Network name (SSID)</label>
+          <div class="onboarding__row">
+            <input
+              id="ob-ssid"
+              class="input-text onboarding__input"
+              type="text"
+              formControlName="ssid"
+              maxlength="32"
+              autocomplete="off"
+              placeholder="Your 2.4 GHz Wi-Fi name"
+            />
+            <button
+              type="button"
+              class="btn btn-secondary onboarding__scan"
+              (click)="scanWifi()"
+              [disabled]="scanning"
+              aria-label="Scan Wi-Fi">
+              <i class="pi {{ scanning ? 'pi-spinner pi-spin' : 'pi-search' }}"></i>
+            </button>
+          </div>
+          @if (wifiForm.get('ssid')?.touched && wifiForm.get('ssid')?.invalid) {
+            <p class="onboarding__error">SSID is required (max 32 characters).</p>
+          }
+
+          <label class="onboarding__label" for="ob-wifiPass">Password</label>
+          <div class="onboarding__password-wrap">
+            <input
+              id="ob-wifiPass"
+              class="input-text onboarding__input"
+              formControlName="wifiPass"
+              [type]="showWifiPassword ? 'text' : 'password'"
+              autocomplete="off"
+              placeholder="Wi-Fi password (leave blank if open)"
+            />
+            <button
+              type="button"
+              class="onboarding__eye"
+              (click)="toggleWifiPasswordVisibility()"
+              aria-label="Toggle password visibility">
+              <i class="pi {{ !showWifiPassword ? 'pi-eye' : 'pi-eye-slash' }}"></i>
+            </button>
+          </div>
+          @if (emptyPasswordFlag) {
+            <p class="onboarding__warn">No password entered — only use this for an open network.</p>
+          }
+        </form>
+
+        <div class="onboarding__actions">
+          <button type="button" class="btn" [disabled]="!wifiValid" (click)="goToStep(2)">
+            Next
+          </button>
+        </div>
+      </section>
+    }
+
+    <!-- Step 2: Wallet -->
+    @if (step === 2) {
+      <section class="onboarding__section">
+        <h2>Step 2 — Wallet</h2>
+        <p class="onboarding__hint">
+          Paste your Bitcoin address. Rewards go straight to this wallet if you find a block.
+        </p>
+
+        <form [formGroup]="walletForm" class="onboarding__form">
+          <label class="onboarding__label" for="ob-wallet">Bitcoin address</label>
+          <input
+            id="ob-wallet"
+            class="input-text onboarding__input"
+            type="text"
+            formControlName="wallet"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="bc1… / 1… / 3…"
+          />
+          @if (walletForm.get('wallet')?.touched && walletForm.get('wallet')?.errors?.['invalidBtcAddress']) {
+            <p class="onboarding__error">Enter a valid BTC address (bc1, 1, or 3…).</p>
+          }
+
+          <label class="onboarding__label" for="ob-worker">Worker label <span class="onboarding__optional">(optional)</span></label>
+          <input
+            id="ob-worker"
+            class="input-text onboarding__input"
+            type="text"
+            formControlName="worker"
+            autocomplete="off"
+            [placeholder]="'Default: ' + (minerHostname || 'bitmern')"
+          />
+
+          <!-- Pool pre-set to Bitmern Solo, hidden by default -->
+          @if (!showAdvancedPool) {
+            <p class="onboarding__pool-note">
+              Pool: Bitmern Solo
+              <button type="button" class="onboarding__link" (click)="toggleAdvancedPool()">Advanced</button>
+            </p>
+          }
+
+          @if (showAdvancedPool) {
+            <div class="onboarding__advanced">
+              <div class="onboarding__advanced-head">
+                <h3>Pool settings</h3>
+                <button type="button" class="onboarding__link" (click)="toggleAdvancedPool()">Hide</button>
+              </div>
+              <p class="onboarding__hint">
+                You can point this miner at any stratum pool. Nothing is locked in.
+              </p>
+
+              <label class="onboarding__label" for="ob-stratumURL">Pool URL</label>
+              <input
+                id="ob-stratumURL"
+                class="input-text onboarding__input"
+                type="text"
+                formControlName="stratumURL"
+                placeholder="btc.bitmernsolo.com"
+              />
+
+              <label class="onboarding__label" for="ob-stratumPort">Port</label>
+              <input
+                id="ob-stratumPort"
+                class="input-text onboarding__input"
+                type="number"
+                formControlName="stratumPort"
+              />
+
+              <label class="onboarding__label" for="ob-stratumPassword">Pool password</label>
+              <div class="onboarding__password-wrap">
+                <input
+                  id="ob-stratumPassword"
+                  class="input-text onboarding__input"
+                  formControlName="stratumPassword"
+                  [type]="showPoolPassword ? 'text' : 'password'"
+                />
+                <button
+                  type="button"
+                  class="onboarding__eye"
+                  (click)="togglePoolPasswordVisibility()"
+                  aria-label="Toggle pool password visibility">
+                  <i class="pi {{ !showPoolPassword ? 'pi-eye' : 'pi-eye-slash' }}"></i>
+                </button>
+              </div>
+
+              <label class="onboarding__label" for="ob-diff">Suggested difficulty</label>
+              <input
+                id="ob-diff"
+                class="input-text onboarding__input"
+                type="number"
+                formControlName="stratumSuggestedDifficulty"
+              />
+
+              <label class="onboarding__check">
+                <input type="checkbox" formControlName="stratumExtranonceSubscribe" />
+                Extranonce subscribe
+              </label>
+
+              <label class="onboarding__label" for="ob-tls">TLS</label>
+              <select id="ob-tls" class="input-text onboarding__input" formControlName="stratumTLS">
+                <option [ngValue]="0">No TLS</option>
+                <option [ngValue]="1">TLS (system certificate)</option>
+                <option [ngValue]="2">TLS (custom CA)</option>
+              </select>
+            </div>
+          }
+        </form>
+
+        <div class="onboarding__actions">
+          <button type="button" class="btn btn-secondary" (click)="goToStep(1)">Back</button>
+          <button type="button" class="btn" [disabled]="!walletValid" (click)="finishSetup()">
+            Finish &amp; restart
+          </button>
+        </div>
+      </section>
+    }
+
+    <!-- Step 3: Saving / connecting / success -->
+    @if (step === 3) {
+      <section class="onboarding__section">
+        @if (saving) {
+          <h2>Saving…</h2>
+          <p class="onboarding__hint">Writing Wi-Fi and pool settings, then restarting the miner.</p>
+          <div class="onboarding__spinner" aria-hidden="true"></div>
+        } @else if (connecting && !minerIp) {
+          <h2>Connecting…</h2>
+          <p class="onboarding__hint">
+            Rejoin your home Wi-Fi if needed. Looking up the miner’s DHCP address…
+          </p>
+          <div class="onboarding__spinner" aria-hidden="true"></div>
+          @if (minerHostname) {
+            <p class="onboarding__hint">Trying <code>http://{{ minerHostname }}.local</code></p>
+          }
+        } @else {
+          <h2>You're set</h2>
+
+          @if (minerIp) {
+            <p class="onboarding__success-ip">
+              Bookmark this address:
+              <a class="onboarding__ip-link" [href]="minerUrl" (click)="openMiner(); $event.preventDefault()">
+                http://{{ minerIp }}
+              </a>
+            </p>
+            <p class="onboarding__hint">Tap the link to open the miner dashboard.</p>
+          } @else if (hostnameUrl) {
+            <p class="onboarding__success-ip">
+              Try opening
+              <a class="onboarding__ip-link" [href]="hostnameUrl">{{ hostnameUrl }}</a>
+            </p>
+            <p class="onboarding__hint">IP is more reliable than .local on some phones — check your router for the DHCP lease if this fails.</p>
+          } @else {
+            <p class="onboarding__hint">
+              Setup is saved. Rejoin your Wi-Fi and open the miner from your router’s device list.
+            </p>
+          }
+
+          @if (minerHostname && minerIp) {
+            <p class="onboarding__hint">
+              Hostname: <code>http://{{ minerHostname }}.local</code>
+              — note that the IP above is usually more reliable.
+            </p>
+          }
+
+          @if (usingBitmernSolo) {
+            <div class="onboarding__solo">
+              You're now mining to Bitmern Solo. Add funds? Nothing to do — rewards go straight to your wallet if you find a block.
+            </div>
+          }
+
+          @if (minerUrl) {
+            <div class="onboarding__actions">
+              <button type="button" class="btn" (click)="openMiner()">Open miner</button>
+            </div>
+          }
+        }
+
+        @if (saveError) {
+          <p class="onboarding__error">{{ saveError }}</p>
+          <div class="onboarding__actions">
+            <button type="button" class="btn btn-secondary" (click)="goToStep(2)">Back</button>
+          </div>
+        }
+      </section>
+    }
+  </div>
+</div>

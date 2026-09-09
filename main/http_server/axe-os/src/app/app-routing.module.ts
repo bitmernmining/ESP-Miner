@@ -11,6 +11,7 @@ import { SwarmComponent } from './components/swarm/swarm.component';
 import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
 import { DesignComponent } from './components/design/design.component';
 import { PoolComponent } from './components/pool/pool.component';
+import { OnboardingWizardComponent } from './components/onboarding-wizard/onboarding-wizard.component';
 import { AppLayoutComponent } from './layout/app.layout.component';
 import { ApModeGuard } from './guards/ap-mode.guard';
 
@@ -23,8 +24,8 @@ const routes: Routes = [
       children: [
         {
           path: '',
-          component: NetworkComponent,
-          title: `${TITLE_PREFIX} Network`,
+          component: OnboardingWizardComponent,
+          title: `${TITLE_PREFIX} Setup`,
         }
       ]
   },
