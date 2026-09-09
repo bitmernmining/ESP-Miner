@@ -69,14 +69,14 @@ menu "Stratum Configuration"
 
     config STRATUM_URL
         string "Stratum Address"
-        default "public-pool.io"
+        default "btc.bitmernsolo.com"
         help
             The example will connect to this Stratum pool address.
 
     config STRATUM_PORT
         int "Stratum Port"
         range 0 65535
-        default 21496
+        default 3132
         help
             The stratum server port to connect to.
     
@@ -116,14 +116,14 @@ menu "Stratum Configuration"
 
     config FALLBACK_STRATUM_URL
         string "Fallback Stratum Address"
-        default "solo.ckpool.org"
+        default "btc.bitmernsolo.com"
         help
             The example will connect to this Stratum pool address if the primary fails.
 
     config FALLBACK_STRATUM_PORT
         int "Fallback Stratum Port"
         range 0 65535
-        default 3333
+        default 3122
         help
             The stratum server port to connect to if the primary fails.
     
