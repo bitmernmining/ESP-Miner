@@ -139,7 +139,7 @@ curl -X PUT http://YOUR-BITAXE-IP/api/system/pools/0 \
      -H "Content-Type: application/json" \
      -d '{
        "stratumProtocol": "SV1",
-       "stratumURL": "solo.ckpool.org",
+       "stratumURL": "btc.bitmernsolo.com",
        "stratumPort": 3333,
        "stratumUser": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa.worker1",
        "stratumPassword": "x",

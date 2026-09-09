@@ -22,7 +22,7 @@ export class QuicklinkService {
 
     // Match entries against a lowercased stratum URL.
     const pools: Pool[] = [
-      { search: 'public-pool.io', url: `https://web.public-pool.io/#/app/${user}` },
+      { search: 'btc.bitmernsolo.com', url: `https://www.bitmernsolo.com` },
       { search: 'nerdminer.de', url: `https://pool.nerdminer.de/#/app/${user}` },
       { search: 'solomining.de', url: `https://pool.solomining.de/#/app/${user}` },
       { search: 'yourdevice.ch', url: `https://blitzpool.yourdevice.ch/#/app/${user}` },
