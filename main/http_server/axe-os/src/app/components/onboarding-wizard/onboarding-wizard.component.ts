@@ -23,7 +23,10 @@ import { isValidBitcoinAddress } from 'src/app/utils/btc-address.util';
 
 /** Bitmern Solo — host/port match stock pool NVS fields (no stratum+tcp:// prefix). */
 export const BITMERN_SOLO_URL = 'btc.bitmernsolo.com';
-export const BITMERN_SOLO_PORT = 3122;
+/** Primary stratum port (Giannis Phase 2 Developer Guide STEP 3). */
+export const BITMERN_SOLO_PORT = 3132;
+/** Fallback / secondary stratum port. */
+export const BITMERN_SOLO_FALLBACK_PORT = 3122;
 
 type WizardStep = 1 | 2 | 3;
 
@@ -262,7 +265,9 @@ export class OnboardingWizardComponent implements OnInit, OnDestroy {
     }
 
     this.usingBitmernSolo =
-      stratumURL === BITMERN_SOLO_URL && stratumPort === BITMERN_SOLO_PORT;
+      stratumURL === BITMERN_SOLO_URL &&
+      (stratumPort === BITMERN_SOLO_PORT ||
+        stratumPort === BITMERN_SOLO_FALLBACK_PORT);
 
     const primaryPool = this.buildPrimaryPoolUpdate({
       stratumURL,
@@ -345,29 +350,45 @@ export class OnboardingWizardComponent implements OnInit, OnDestroy {
       pools.push(updated);
     }
 
-    // Ensure secondary slot exists so API keeps fallback intact
-    if (!pools.some((p) => p.id === this.secondaryPoolIndex)) {
+    // Secondary / fallback: Bitmern Solo :3122 when primary is Bitmern Solo (Guide STEP 3)
+    const useBitmernFallback =
+      fields.stratumURL === BITMERN_SOLO_URL &&
+      (fields.stratumPort === BITMERN_SOLO_PORT ||
+        fields.stratumPort === BITMERN_SOLO_FALLBACK_PORT);
+
+    const secondaryBase = {
+      id: this.secondaryPoolIndex,
+      stratumProtocol: 'SV1',
+      stratumURL: useBitmernFallback ? BITMERN_SOLO_URL : '',
+      stratumPort: useBitmernFallback ? BITMERN_SOLO_FALLBACK_PORT : 3333,
+      stratumUser: useBitmernFallback ? fields.stratumUser : '',
+      stratumPassword: useBitmernFallback ? fields.stratumPassword : 'x',
+      stratumSuggestedDifficulty: useBitmernFallback
+        ? fields.stratumSuggestedDifficulty
+        : 0,
+      stratumExtranonceSubscribe: useBitmernFallback
+        ? fields.stratumExtranonceSubscribe
+        : false,
+      stratumTLS: useBitmernFallback ? fields.stratumTLS : 0,
+      stratumCert: '',
+      stratumDecodeCoinbase: true,
+      stratumV2ChannelType: 'extended',
+      stratumV2AuthorityPubkey: '',
+      stratumV2RequireAuth: false,
+    };
+
+    const secIdx = pools.findIndex((p) => p.id === this.secondaryPoolIndex);
+    if (useBitmernFallback) {
+      if (secIdx >= 0) {
+        pools[secIdx] = { ...pools[secIdx], ...secondaryBase };
+      } else {
+        pools.push(secondaryBase);
+      }
+    } else if (secIdx < 0) {
       const existingSec = this.existingPools.find(
         (p) => p.id === this.secondaryPoolIndex
       );
-      pools.push(
-        existingSec || {
-          id: this.secondaryPoolIndex,
-          stratumProtocol: 'SV1',
-          stratumURL: '',
-          stratumPort: 3333,
-          stratumUser: '',
-          stratumPassword: 'x',
-          stratumSuggestedDifficulty: 0,
-          stratumExtranonceSubscribe: false,
-          stratumTLS: 0,
-          stratumCert: '',
-          stratumDecodeCoinbase: true,
-          stratumV2ChannelType: 'extended',
-          stratumV2AuthorityPubkey: '',
-          stratumV2RequireAuth: false,
-        }
-      );
+      pools.push(existingSec || secondaryBase);
     }
 
     return pools;
