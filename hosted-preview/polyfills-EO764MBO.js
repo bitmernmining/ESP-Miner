@@ -1,1 +1,1 @@
-PLACEHOLDER_REPLACE_FROM_FILE
+@file:/home/box/.cursor/projects/workspace/agent-tools/hosted_preview_polyfills_content.js
