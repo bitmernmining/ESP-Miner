@@ -1,6 +1,10 @@
-# AxeOS
+# Bitmern OS
 
-The Angular frontend for the Bitaxe open-source Bitcoin miner. All commands can be run either from this directory or from the **repository root** (commands are forwarded via the root `package.json`).
+Bitmern OS is the Angular dashboard frontend for Bitmern-branded ESP-Miner firmware (a branded fork of AxeOS).
+
+**GPL-3.0 credits:** Bitmern OS is based on [bitaxeorg/ESP-Miner](https://github.com/bitaxeorg/ESP-Miner) (AxeOS / Skot9000). Full modified source: [bitmernmining/ESP-Miner](https://github.com/bitmernmining/ESP-Miner).
+
+All commands can be run either from this directory or from the **repository root** (commands are forwarded via the root `package.json`).
 
 ## Development server
 
