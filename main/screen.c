@@ -32,7 +32,6 @@ typedef enum {
 
 #define SCR_CAROUSEL_START SCR_URLS
 
-extern const lv_img_dsc_t bitaxe_logo;
 extern const lv_img_dsc_t osmu_logo;
 extern const lv_img_dsc_t identify_text;
 
@@ -148,7 +147,7 @@ static lv_obj_t * create_scr_overheat() {
     lv_obj_t *label2 = lv_label_create(scr);
     lv_obj_set_width(label2, LV_HOR_RES);
     lv_label_set_long_mode(label2, LV_LABEL_LONG_SCROLL_CIRCULAR);
-    lv_label_set_text(label2, "Power, frequency and fan configurations have been reset. Go to AxeOS to reconfigure device.");
+    lv_label_set_text(label2, "Power, frequency and fan configurations have been reset. Go to Bitmern OS to reconfigure device.");
 
     lv_obj_t *label3 = lv_label_create(scr);
     lv_label_set_text(label3, "IP Address:");
@@ -206,7 +205,7 @@ static lv_obj_t * create_scr_welcome(const char * ap_ssid) {
     lv_obj_set_width(label1, lv_pct(100));
     lv_obj_set_style_anim_duration(label1, 15000, LV_PART_MAIN);
     lv_label_set_long_mode(label1, LV_LABEL_LONG_SCROLL_CIRCULAR);
-    lv_label_set_text(label1, "Welcome to your new Bitaxe! Connect to the configuration Wi-Fi and connect the Bitaxe to your network.");
+    lv_label_set_text(label1, "Welcome to Bitmern OS! Connect to the configuration Wi-Fi and connect the miner to your network.");
 
     // add a bit of padding, it looks nicer this way
     lv_obj_set_style_pad_bottom(label1, 4, LV_PART_MAIN);
@@ -259,17 +258,17 @@ static lv_obj_t * create_scr_connection(const char * ssid, const char * ap_ssid)
 static lv_obj_t * create_scr_bitaxe_logo(const char * name, const char * board_version) {
     lv_obj_t * scr = lv_obj_create(NULL);
 
-    lv_obj_t *img = lv_img_create(scr);
-    lv_img_set_src(img, &bitaxe_logo);
-    lv_obj_align(img, LV_ALIGN_CENTER, 0, 1);
+    lv_obj_t *brand = lv_label_create(scr);
+    lv_label_set_text(brand, "Bitmern OS");
+    lv_obj_align(brand, LV_ALIGN_CENTER, 0, -6);
 
     lv_obj_t *label1 = lv_label_create(scr);
     lv_label_set_text(label1, name);
-    lv_obj_align(label1, LV_ALIGN_RIGHT_MID, -6, -12);
+    lv_obj_align(label1, LV_ALIGN_CENTER, 0, 4);
 
     lv_obj_t *label2 = lv_label_create(scr);
     lv_label_set_text(label2, board_version);
-    lv_obj_align(label2, LV_ALIGN_RIGHT_MID, -6, -4);
+    lv_obj_align(label2, LV_ALIGN_CENTER, 0, 12);
 
     return scr;
 }
