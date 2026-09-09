@@ -23,7 +23,7 @@ import { isValidBitcoinAddress } from 'src/app/utils/btc-address.util';
 
 /** Bitmern Solo — host/port match stock pool NVS fields (no stratum+tcp:// prefix). */
 export const BITMERN_SOLO_URL = 'btc.bitmernsolo.com';
-/** Primary stratum port (Giannis Phase 2 Developer Guide STEP 3). */
+/** Primary stratum port (product default). */
 export const BITMERN_SOLO_PORT = 3132;
 /** Fallback / secondary stratum port. */
 export const BITMERN_SOLO_FALLBACK_PORT = 3122;
@@ -350,7 +350,7 @@ export class OnboardingWizardComponent implements OnInit, OnDestroy {
       pools.push(updated);
     }
 
-    // Secondary / fallback: Bitmern Solo :3122 when primary is Bitmern Solo (Guide STEP 3)
+    // Secondary / fallback: Bitmern Solo :3122 when primary is Bitmern Solo
     const useBitmernFallback =
       fields.stratumURL === BITMERN_SOLO_URL &&
       (fields.stratumPort === BITMERN_SOLO_PORT ||
