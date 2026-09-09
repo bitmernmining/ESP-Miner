@@ -116,7 +116,7 @@ export class SystemComponent implements OnInit, OnDestroy {
     ];
 
     if (data.info.useCustomWWW === 1) {
-      rows.push({ label: 'AxeOS Version', value: data.info.axeOSVersion });
+      rows.push({ label: 'Bitmern OS Version', value: data.info.axeOSVersion });
     }
 
     rows.push({ label: 'ESP-IDF Version', value: data.info.idfVersion });

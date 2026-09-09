@@ -19,6 +19,7 @@ export class ThemeConfigComponent implements OnInit {
   selectedScheme: string;
   currentColor: string = '';
   themes: ThemeOption[] = [
+    { name: 'Bitmern Gold', primaryColor: '#F1AE2E' },
     // === Reds & Oranges (energetic & warm) ===
     { name: 'Bright Red', primaryColor: '#F80421' },
     { name: 'Coral Red', primaryColor: '#FF5252' },

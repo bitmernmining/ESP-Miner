@@ -63,8 +63,8 @@ export class LayoutService {
 
                     document.documentElement.style.setProperty('--color-primary', settings.primaryColor);
                 } else {
-                    // Save default red dark theme if no settings exist
-                    const defaultPrimary = '#F80421';
+                    // Save default Bitmern gold dark theme if no settings exist
+                    const defaultPrimary = '#F1AE2E';
                     this.themeService.saveThemeSettings({
                         colorScheme: 'dark',
                         primaryColor: defaultPrimary
