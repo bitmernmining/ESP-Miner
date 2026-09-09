@@ -1,1 +1,1 @@
-file:///workspace/bitmern-os-phase2/preview-dist/polyfills-EO764MBO.js
+@file:/home/box/.cursor/projects/workspace/agent-tools/hosted_preview_polyfills_update.json
