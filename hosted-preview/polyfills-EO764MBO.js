@@ -1,1 +1,1 @@
-@file:/home/box/.cursor/projects/workspace/agent-tools/hosted_preview_polyfills_update.json
+PLACEHOLDER_REPLACE_FROM_FILE
