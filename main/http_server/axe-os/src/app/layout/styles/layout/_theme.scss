@@ -1,15 +1,15 @@
 :root, .theme-dark {
-    /* Theme color variables for Dark Theme (Default) */
-    --color-bg-content: #070D17;
-    --color-bg-card: #0B1219;
-    --color-border-content: #454d59;
-    --card-border: #1A2632;
-    --surface-border: #192730;
-    --color-text-main: rgba(255, 255, 255, 0.87);
-    --color-text-secondary: rgba(255, 255, 255, 0.6);
+    /* Theme color variables for Dark Theme (Default) — Bitmern gold/black/white */
+    --color-bg-content: #0A0A0A;
+    --color-bg-card: #0F0F0F;
+    --color-border-content: #292929;
+    --card-border: #292929;
+    --surface-border: #292929;
+    --color-text-main: #E6E6E6;
+    --color-text-secondary: #737373;
     --color-mask-bg: rgba(0, 0, 0, 0.4);
-    --color-overlay-select-bg: #0B1219;
-    --color-overlay-select-border: #1A2632;
+    --color-overlay-select-bg: #0F0F0F;
+    --color-overlay-select-border: #292929;
 
     /* Theme Settings & Sizing Defaults */
     --color-bg-hover: rgba(255, 255, 255, 0.05);
@@ -24,8 +24,8 @@
     --card-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
 
     /* Branding Source Variables (Reactive via JS) */
-    --color-primary: #F80421;
-    --color-primary-text: #ffffff;
+    --color-primary: #F1AE2E;
+    --color-primary-text: #0A0A0A;
     --color-primary-hover: oklch(from var(--color-primary) calc(l - 0.08) c h);
 
     /* Dynamic Theme variables calculated from --color-primary */
@@ -48,31 +48,31 @@
 }
 
 .theme-light {
-    /* Theme color variables for Light Theme */
-    --color-bg-content: #243447;
-    --color-bg-card: #1a2632;
-    --color-border-content: #454d59;
-    --card-border: #2f4562;
-    --surface-border: #2f4562;
-    --color-text-main: rgba(255, 255, 255, 0.9);
-    --color-text-secondary: rgba(255, 255, 255, 0.7);
+    /* Theme color variables for Light Theme — gold/black/white family (sidebar-ish dark) */
+    --color-bg-content: #060606;
+    --color-bg-card: #0F0F0F;
+    --color-border-content: #292929;
+    --card-border: #292929;
+    --surface-border: #292929;
+    --color-text-main: #E6E6E6;
+    --color-text-secondary: #737373;
     --color-mask-bg: rgba(0, 0, 0, 0.2);
-    --color-overlay-select-bg: #1a2632;
-    --color-overlay-select-border: #2f4562;
+    --color-overlay-select-bg: #0F0F0F;
+    --color-overlay-select-border: #292929;
     --color-bg-hover: rgba(255, 255, 255, 0.05);
 }
 
 .theme-white {
-    /* Theme color variables for White Theme */
-    --color-bg-content: #f8fafc;
-    --color-bg-card: #f1f5f9;
-    --color-border-content: #e2e8f0;
-    --card-border: #e2e8f0;
-    --surface-border: #cbd5e1;
-    --color-text-main: #0f172a;
-    --color-text-secondary: #64748b;
+    /* Theme color variables for White Theme — white/near-white bg, dark text, gold primary */
+    --color-bg-content: #FFFFFF;
+    --color-bg-card: #F5F5F5;
+    --color-border-content: #E5E5E5;
+    --card-border: #E5E5E5;
+    --surface-border: #D4D4D4;
+    --color-text-main: #0A0A0A;
+    --color-text-secondary: #737373;
     --color-mask-bg: rgba(0, 0, 0, 0.2);
-    --color-overlay-select-bg: #f1f5f9;
-    --color-overlay-select-border: #e2e8f0;
+    --color-overlay-select-bg: #F5F5F5;
+    --color-overlay-select-border: #E5E5E5;
     --color-bg-hover: rgba(0, 0, 0, 0.04);
 }
