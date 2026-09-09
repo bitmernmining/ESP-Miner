@@ -32,6 +32,7 @@ import { LogsComponent } from './components/logs/logs.component';
 import { SystemComponent } from './components/system/system.component';
 import { UpdateComponent } from './components/update/update.component';
 import { NetworkComponent } from './components/network/network.component';
+import { OnboardingWizardComponent } from './components/onboarding-wizard/onboarding-wizard.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SwarmComponent } from './components/swarm/swarm.component';
 import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
@@ -57,6 +58,7 @@ const components = [
   ConfettiComponent,
   SnowflakesComponent,
   NetworkComponent,
+  OnboardingWizardComponent,
   LogsComponent,
   SystemComponent,
   UpdateComponent,
