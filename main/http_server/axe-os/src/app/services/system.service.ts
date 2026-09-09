@@ -105,7 +105,7 @@ export class SystemApiService {
           {
             id: 0,
             stratumProtocol: "SV1" as const,
-            stratumURL: "public-pool.io",
+            stratumURL: "btc.bitmernsolo.com",
             stratumPort: 21496,
             stratumUser: "bc1q99n3pu025yyu0jlywpmwzalyhm36tg5u37w20d.bitaxe-U1",
             stratumPassword: "x",
@@ -121,7 +121,7 @@ export class SystemApiService {
           {
             id: 1,
             stratumProtocol: "SV1" as const,
-            stratumURL: "test.public-pool.io",
+            stratumURL: "test.btc.bitmernsolo.com",
             stratumPort: 21497,
             stratumUser: "bc1q99n3pu025yyu0jlywpmwzalyhm36tg5u37w20d.bitaxe-U1",
             stratumPassword: "x",
@@ -136,7 +136,7 @@ export class SystemApiService {
           }
         ],
         stratumProtocol: "SV1" as const,
-        stratumURL: "public-pool.io",
+        stratumURL: "btc.bitmernsolo.com",
         stratumPort: 21496,
         stratumUser: "bc1q99n3pu025yyu0jlywpmwzalyhm36tg5u37w20d.bitaxe-U1",
         stratumSuggestedDifficulty: 1000,
@@ -147,7 +147,7 @@ export class SystemApiService {
         stratumV2ChannelType: "extended" as const,
         stratumDecodeCoinbase: true,
         fallbackStratumProtocol: "SV1" as const,
-        fallbackStratumURL: "test.public-pool.io",
+        fallbackStratumURL: "test.btc.bitmernsolo.com",
         fallbackStratumPort: 21497,
         fallbackStratumUser: "bc1q99n3pu025yyu0jlywpmwzalyhm36tg5u37w20d.bitaxe-U1",
         fallbackStratumSuggestedDifficulty: 1000,
