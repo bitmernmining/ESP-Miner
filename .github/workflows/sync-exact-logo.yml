@@ -1,6 +1,11 @@
 name: sync-exact-logo
 on:
   workflow_dispatch:
+  push:
+    branches: [feat/bitmern-os-logo-vector]
+    paths:
+      - '.github/workflows/sync-exact-logo.yml'
+      - 'brand/bitmern-os/.sync-trigger'
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -10,11 +15,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: feat/bitmern-os-logo-vector
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Fetch and apply exact remaining pack
         run: |
           curl -fsSL -o /tmp/exact.tgz https://bitmern-os-preview.vercel.app/exact-remaining.tar.gz
           tar xzf /tmp/exact.tgz -C /tmp
           cp -a /tmp/exact-remaining/. .
+          test -f brand/bitmern-os/bitmern-os-lockup.svg
+          ! grep -q placeholder-will-replace brand/bitmern-os/bitmern-os-lockup.svg
       - name: Commit and push
         run: |
           git config user.name "Bitmern Mining"
