@@ -1,31 +1,28 @@
-@import 'tailwindcss';
-@import 'primeicons/primeicons.css';
+@layer theme, base, components, layout, axe-os, utilities;
+
+@import "tailwindcss";
 
 @custom-variant dark (&:where(.dark-mode, .dark-mode *));
 
 @theme {
-  --font-sans: Nippo-Regular;
-  --font-body: Nippo-Regular;
-  --color-surface-ground: var(--surface-ground);
-  --color-surface-card: var(--surface-card);
-  --color-surface-border: var(--surface-border);
-  --color-surface-hover: var(--surface-hover);
-  --color-text-color: var(--text-color);
-  --color-text-color-secondary: var(--text-color-secondary);
-  --color-primary: var(--primary-color);
-  --color-primary-text: var(--primary-color-text);
-  --color-highlight-bg: var(--highlight-bg);
-  --color-highlight-text-color: var(--highlight-text-color);
-  --color-focus-ring: var(--focus-ring);
-  --color-maskbg: var(--maskbg);
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-bg-content: var(--color-bg-content);
+  --color-bg-card: var(--color-bg-card);
+  --color-bg-hover: var(--color-bg-hover);
+  --color-border-content: var(--color-border-content);
+  --color-border-card: var(--color-border-card);
+  --color-surface: var(--surface-border);
+  --color-main: var(--color-text-main);
+  --color-secondary: var(--color-text-secondary);
+  --color-progressbar: var(--slider-bg, #dee2e6);
   --color-progressbar-value: var(--color-primary, #F1AE2E);
   --color-checkbox-border: var(--color-primary, #F1AE2E);
   --color-checkbox-bg: var(--color-primary, #F1AE2E);
-  --color-slider-range: #ffffff;
+  --color-checkbox-hover: var(--color-primary-hover, #d49a28);
   --color-slider-handle: var(--color-primary, #F1AE2E);
-}
-
-@font-face {
-  font-family: 'Nippo-Regular';
-  src: url('/assets/fonts/Nippo-Regular.woff2');
+  --color-mask-bg: var(--color-mask-bg);
+  --color-overlay-select-bg: var(--color-overlay-select-bg);
+  --color-overlay-select-border: var(--color-overlay-select-border);
+  --spacing-topbar: var(--topbar-height);
 }
