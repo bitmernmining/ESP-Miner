@@ -1,1 +1,9 @@
-LOAD_FROM_FILE:/tmp/gh_file_payloads/main__http_server__axe-os__src__assets__bitmern-os-lockup.svg.json
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2118" height="551" viewBox="0 0 2118 551">
+  <!-- Temporary mark — full traced vectors restoring next -->
+  <circle cx="275" cy="275" r="240" fill="none" stroke="#F1AE2E" stroke-width="36"/>
+  <path d="M180 140 L180 410 L250 410 L250 290 L320 410 L400 410 L310 270 L390 140 L310 140 L250 250 L250 140 Z" fill="#FFFFFF"/>
+  <text x="560" y="340" fill="#FFFFFF" font-family="Arial Black, Arial, sans-serif" font-size="220" font-weight="700">BITMERN</text>
+  <rect x="1580" y="160" width="18" height="230" fill="#F1AE2E"/>
+  <text x="1640" y="340" fill="#F1AE2E" font-family="Arial Black, Arial, sans-serif" font-size="220" font-weight="700">OS</text>
+</svg>
