@@ -1,1 +1,117 @@
-PLACEHOLDER_LOAD_FROM_FILE
+<div class="layout-topbar">
+  <a routerLink="" class="text-main">
+    <img src="assets/bitmern-os-lockup.svg" alt="Bitmern OS" width="110" height="50" class="block" role="img" />
+  </a>
+
+  @if (!isAPMode) {
+    <button #menubutton class="bg-transparent border-none p-0 cursor-pointer text-left layout-topbar-button"
+      (click)="layoutService.onMenuToggle()">
+      <i class="pi pi-bars text-primary"></i>
+    </button>
+  }
+
+  @if (info$ | async; as info) {
+    <span class="text-secondary select-none absolute left-0 bottom-0 ml-12 md:ml-16 mb-1"
+      tooltipPosition="bottom"
+      appTooltip="Hostname"
+    >{{info.hostname}}</span>
+    @if (!isAPMode) {
+      <ul class="flex ml-auto list-none p-0 m-0 gap-6 lg:order-2">
+        @if (dashboardEdit.editMode$ | async) {
+          <li class="hidden md:block">
+            <a class="block py-2 text-main cursor-pointer"
+              tooltipPosition="bottom"
+              appTooltip="Widgets"
+              (click)="isWidgetPanelOpen = !isWidgetPanelOpen"
+              >
+              <i class="pi pi-list-check text-2xl block"></i>
+            </a>
+          </li>
+          <li class="hidden md:block">
+            <a class="block py-2 text-main cursor-pointer"
+              tooltipPosition="bottom"
+              [appTooltip]="layoutService.isWideView() ? 'Standard Width' : 'Wide View'"
+              (click)="layoutService.toggleWideView()"
+              >
+              <i class="pi text-xl block"
+              [ngClass]="layoutService.isWideView() ? 'pi-window-minimize' : 'pi-window-maximize'"></i>
+            </a>
+          </li>
+          <li class="hidden md:block">
+            <a class="block py-2 text-main cursor-pointer"
+              tooltipPosition="bottom"
+              appTooltip="Reset Layout"
+              (click)="dashboardEdit.requestReset()"
+              >
+              <i class="pi pi-replay text-xl block"></i>
+            </a>
+          </li>
+        }
+        <li class="hidden md:block">
+          <a class="block py-2 text-main cursor-pointer"
+            tooltipPosition="bottom"
+            [appTooltip]="(dashboardEdit.editMode$ | async) ? 'Save Layout' : 'Edit Layout'"
+            (click)="dashboardEdit.toggleEditMode()"
+            >
+            <i class="pi text-xl block"
+            [ngClass]="(dashboardEdit.editMode$ | async) ? 'pi-save' : 'pi-th-large'"></i>
+          </a>
+        </li>
+        <li>
+          <a class="block py-2 text-main cursor-pointer"
+            tooltipPosition="bottom"
+            appTooltip="Sensitive data {{sensitiveDataHidden ? 'hidden' : 'visible'}}"
+            (click)="toggleSensitiveData()"
+            >
+            <i class="pi pi-{{sensitiveDataHidden ? 'eye-slash' : 'eye'}} block" style="font-size: 1.4rem;"></i>
+          </a>
+        </li>
+        <li>
+          <a routerLink="network"
+            class="block py-2 text-main"
+            tooltipPosition="bottom"
+            appTooltip="Wi-Fi RSSI: {{info.wifiRSSI}} dBm"
+            >
+            <wifi-icon [rssi]="info.wifiRSSI" />
+          </a>
+        </li>
+        <li>
+          <a class="block py-2 text-main cursor-pointer"
+            tooltipPosition="bottom"
+            [appTooltip]="isMiningPaused ? 'Resume Mining' : 'Pause Mining'"
+            (click)="toggleMiningPaused()"
+            >
+            <i class="pi text-xl block" [ngClass]="isMiningPaused ? 'pi-play-circle' : 'pi-pause-circle'"></i>
+          </a>
+        </li>
+        <li>
+          <a class="block py-2 text-main cursor-pointer"
+            tooltipPosition="bottom"
+            appTooltip="Restart"
+            (click)="restart()"
+            >
+            <i class="pi pi-refresh text-xl block"></i>
+          </a>
+        </li>
+      </ul>
+    }
+    @if (isWidgetPanelOpen) {
+      <div class="fixed inset-0 z-40" (click)="isWidgetPanelOpen = false"></div>
+      <div class="absolute right-4 top-topbar mt-2 z-50 bg-bg-card border border-surface shadow-2xl p-4 rounded min-w-[200px]">
+        <div class="flex flex-col gap-2">
+          @for (widget of dashboardEdit.widgetDefs; track widget) {
+            <div class="flex items-center gap-2">
+              <app-checkbox
+                [binary]="true"
+                [ngModel]="dashboardEdit.isWidgetVisible(widget.id)"
+                (onChange)="dashboardEdit.toggleWidgetRequested$.next(widget.id)"
+                [inputId]="'widget-' + widget.id">
+              </app-checkbox>
+              <label [for]="'widget-' + widget.id" class="text-sm cursor-pointer whitespace-nowrap">{{ widget.label }}</label>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  }
+</div>
