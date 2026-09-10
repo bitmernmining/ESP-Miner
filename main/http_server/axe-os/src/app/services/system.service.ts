@@ -77,7 +77,7 @@ export class SystemApiService {
         maxAllocHeap: 90000,
         coreVoltage: 1200,
         coreVoltageActual: 1200,
-        hostname: "Bitaxe",
+        hostname: "Bitmern",
         macAddr: "2C:54:91:88:C9:E3",
         ssid: "default",
         ipv4: "192.168.1.1",

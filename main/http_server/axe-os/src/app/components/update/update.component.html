@@ -98,7 +98,7 @@
 <app-modal #progressModal [headline]="'Updating ' + updateTarget" [closable]="updateStatus !== 'progress'">
   <div class="flex flex-col items-center justify-center p-4">
     @if (updateStatus === 'progress') {
-      @if (updateTarget === 'AxeOS' && websiteUpdateProgress !== null) {
+      @if (updateTarget === 'Bitmern OS' && websiteUpdateProgress !== null) {
         <div class="text-xl mb-3">
           Uploading... {{ websiteUpdateProgress }}%
         </div>
@@ -108,12 +108,12 @@
           Uploading... {{ firmwareUpdateProgress }}%
         </div>
       }
-      @if ((updateTarget === 'AxeOS' && websiteUpdateProgress === null) || (updateTarget === 'Firmware' && firmwareUpdateProgress === null)) {
+      @if ((updateTarget === 'Bitmern OS' && websiteUpdateProgress === null) || (updateTarget === 'Firmware' && firmwareUpdateProgress === null)) {
         <div class="text-xl mb-3">
           Applying update...
         </div>
       }
-      @let progressVal = (updateTarget === 'AxeOS' ? websiteUpdateProgress : firmwareUpdateProgress);
+      @let progressVal = (updateTarget === 'Bitmern OS' ? websiteUpdateProgress : firmwareUpdateProgress);
       <app-progressbar [value]="progressVal ?? 0" heightClass="h-6"></app-progressbar>
       <div class="text-center mt-3 text-secondary">
         Please do not disconnect the power.
@@ -123,7 +123,7 @@
     @if (updateStatus === 'success') {
       <i class="pi pi-check-circle text-green-500" style="font-size: 3.5rem; margin-bottom: 1rem;"></i>
       <div class="text-lg text-center">{{ updateMessage }}</div>
-      @if (updateTarget !== 'AxeOS') {
+      @if (updateTarget !== 'Bitmern OS') {
         <div class="mt-4">
           <button class="btn" (click)="progressModal.isVisible = false">Close</button>
         </div>
