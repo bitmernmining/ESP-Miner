@@ -1,0 +1,25 @@
+name: sync-exact-logo
+on:
+  workflow_dispatch:
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/bitmern-os-logo-vector
+      - name: Fetch and apply exact remaining pack
+        run: |
+          curl -fsSL -o /tmp/exact.tgz https://bitmern-os-preview.vercel.app/exact-remaining.tar.gz
+          tar xzf /tmp/exact.tgz -C /tmp
+          cp -a /tmp/exact-remaining/. .
+      - name: Commit and push
+        run: |
+          git config user.name "Bitmern Mining"
+          git config user.email "admin@bitmernmining.com"
+          git add -A
+          git status
+          git diff --cached --quiet || git commit -m "feat(brand): exact Bitmern OS logo vector + Bitmern Gold theme"
+          git push origin HEAD:feat/bitmern-os-logo-vector
