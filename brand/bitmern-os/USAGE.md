@@ -1,16 +1,8 @@
-# Bitmern OS brand marks
+# Bitmern OS brand pack
 
-Vectorized from the approved Giannis PNG (cleaner-B). Paths traced from the exact artwork — not a redesigned B.
+- `bitmern-os-lockup.svg` — circular B mark + gold divider + **OS** (no “BITMERN” wordmark)
+- `bitmern-os-coin.svg` — circular B mark only (favicon / loading)
+- `bitmern-os-coin-oled.svg` — white mono coin for OLED splash
+- Colors: gold `#F1AE2E`, white `#FFFFFF`, black backgrounds
 
-| File | Use |
-|------|-----|
-| `bitmern-os-lockup.svg` | Dashboard / wizard header |
-| `bitmern-os-coin.svg` | Favicon, tight spaces |
-| `bitmern-os-coin-oled.svg` | OLED splash (1-color white) |
-
-## Colors (exact)
-- Gold: `#F1AE2E`
-- White: `#FFFFFF`
-- Background: transparent
-
-`source-approved-ref.png` is the approved raster; do not ship soft AI PNG edges to OLED — use the OLED SVG / derived bitmap only.
+Do not redesign the B. Trace only from the Giannis-approved PNG.
