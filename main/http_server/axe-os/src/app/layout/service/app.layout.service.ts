@@ -61,7 +61,17 @@ export class LayoutService {
                         colorScheme: settings.colorScheme,
                     };
 
-                    document.documentElement.style.setProperty('--color-primary', settings.primaryColor);
+                    // Migrate legacy AxeOS red default to Bitmern Gold
+                    const primary = (settings.primaryColor || '').toUpperCase() === '#F80421'
+                      ? '#F1AE2E'
+                      : (settings.primaryColor || '#F1AE2E');
+                    if (primary !== settings.primaryColor) {
+                      this.themeService.saveThemeSettings({
+                        colorScheme: settings.colorScheme || 'dark',
+                        primaryColor: primary
+                      }).subscribe();
+                    }
+                    document.documentElement.style.setProperty('--color-primary', primary);
                 } else {
                     // Save default Bitmern gold dark theme if no settings exist
                     const defaultPrimary = '#F1AE2E';

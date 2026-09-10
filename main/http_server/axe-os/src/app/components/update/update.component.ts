@@ -144,7 +144,7 @@ export class UpdateComponent {
       return;
     }
 
-    this.updateTarget = 'AxeOS';
+    this.updateTarget = 'Bitmern OS';
     this.updateStatus = 'progress';
     this.updateMessage = '';
     if (this.progressModal) {
@@ -159,7 +159,7 @@ export class UpdateComponent {
           } else if (event.type === HttpEventType.Response) {
             if (event.ok) {
               this.updateStatus = 'success';
-              this.updateMessage = 'AxeOS updated. The page will reload when the device comes back online.';
+              this.updateMessage = 'Bitmern OS updated. The page will reload when the device comes back online.';
             } else {
               this.updateStatus = 'error';
               this.updateMessage = event.statusText || 'An unknown error occurred.';

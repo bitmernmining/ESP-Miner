@@ -550,7 +550,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private rebuildChartDatasets() {
     const documentStyle = getComputedStyle(document.documentElement);
-    const primaryColor = documentStyle.getPropertyValue('--color-primary').trim() || '#F80421';
+    const primaryColor = documentStyle.getPropertyValue('--color-primary').trim() || '#F1AE2E';
     const textColor = documentStyle.getPropertyValue('--color-text-main').trim() || '#ffffff';
     const textColorSecondary = documentStyle.getPropertyValue('--color-text-secondary').trim() || '#808080';
 
