@@ -1,1 +1,1 @@
-@file:/tmp/hosted-preview/chunk-WNLWJT2D.js
+@file:/home/box/.cursor/projects/workspace/agent-tools/push_chunk-WNLWJT2D.js
