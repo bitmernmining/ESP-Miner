@@ -1,0 +1,1084 @@
+<title>Bitmern OS Mockups</title>
+<style>
+  :root{
+    --bg-page:#070b12;
+    --bg-card:#0e141d;
+    --bg-card-raised:#131a25;
+    --border:#1e2a38;
+    --border-soft:#161f2b;
+    --text-main:#f3f1ea;
+    --text-dim:#8b93a0;
+    --text-faint:#5a6472;
+    --gold:#e3b341;
+    --gold-ink:#e3b341;
+    --gold-dim:#7a6323;
+    --gold-wash:rgba(227,179,65,0.09);
+    --good:#3ddc84;
+    --good-wash:rgba(61,220,132,0.12);
+    --warn:#f5a623;
+    --warn-wash:rgba(245,166,35,0.12);
+    --crit:#e5484d;
+    --crit-wash:rgba(229,72,77,0.12);
+    --shell-bg:#05070b;
+    --device-bezel:linear-gradient(180deg,#11161f,#0a0d13);
+    --device-bezel-ring:#1c232f;
+    color-scheme: dark;
+  }
+
+  body.theme-light{
+    --bg-page:#fbfbfa;
+    --bg-card:#ffffff;
+    --bg-card-raised:#f2f4f7;
+    --border:#e3e6eb;
+    --border-soft:#edeff2;
+    --text-main:#14171d;
+    --text-dim:#5b6472;
+    --text-faint:#8993a1;
+    --gold:#a9720b;
+    --gold-ink:#a9720b;
+    --gold-dim:#c9a227;
+    --gold-wash:rgba(169,114,11,0.10);
+    --good:#1e9e5a;
+    --good-wash:rgba(30,158,90,0.10);
+    --warn:#b25e00;
+    --warn-wash:rgba(178,94,0,0.10);
+    --crit:#c62828;
+    --crit-wash:rgba(198,40,40,0.10);
+    --shell-bg:#eef0f2;
+    --device-bezel:linear-gradient(180deg,#2a2e35,#1c1f24);
+    --device-bezel-ring:#3a3f47;
+    color-scheme: light;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:var(--shell-bg);
+    color:var(--text-main);
+    font-family:'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    padding:28px 16px 60px;
+    -webkit-font-smoothing:antialiased;
+    transition:background 0.2s ease, color 0.2s ease;
+  }
+
+  .mono{ font-family:'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace; font-variant-numeric:tabular-nums; }
+
+  /* ---------- Header / review chrome ---------- */
+  .review-head{
+    max-width:920px;
+    margin:0 auto 22px;
+  }
+  .review-head .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:10px;
+  }
+  .review-head .eyebrow::before{
+    content:"";
+    width:6px; height:6px; border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 0 3px var(--gold-wash);
+  }
+  .review-head h1{
+    font-size:clamp(22px,4vw,30px);
+    line-height:1.15;
+    margin:0 0 8px;
+    text-wrap:balance;
+    letter-spacing:-0.01em;
+  }
+  .review-head p{
+    color:var(--text-dim);
+    font-size:14px;
+    line-height:1.55;
+    margin:0;
+    max-width:62ch;
+  }
+  .review-head p + p{ margin-top:8px; }
+  .review-head code{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    padding:1px 6px;
+    border-radius:4px;
+    color:var(--text-main);
+  }
+
+  .constraint-strip{
+    max-width:920px;
+    margin:0 auto 26px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .constraint-chip{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.02em;
+    color:var(--text-dim);
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:6px 12px;
+    white-space:nowrap;
+  }
+  .constraint-chip b{ color:var(--gold); font-weight:600; }
+
+  /* ---------- Tabs ---------- */
+  .tabs{
+    max-width:920px;
+    margin:0 auto 24px;
+    display:flex;
+    gap:6px;
+    border-bottom:1px solid var(--border);
+    overflow-x:auto;
+  }
+  .tab{
+    appearance:none;
+    background:transparent;
+    border:none;
+    color:var(--text-dim);
+    font-family:'Manrope', sans-serif;
+    font-size:13.5px;
+    font-weight:600;
+    padding:10px 4px;
+    margin-right:22px;
+    cursor:pointer;
+    position:relative;
+    white-space:nowrap;
+  }
+  .tab .n{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--text-faint);
+    margin-right:7px;
+    font-size:12px;
+  }
+  .tab[aria-selected="true"]{ color:var(--text-main); }
+  .tab[aria-selected="true"] .n{ color:var(--gold); }
+  .tab[aria-selected="true"]::after{
+    content:"";
+    position:absolute;
+    left:0; right:22px; bottom:-1px;
+    height:2px;
+    background:var(--gold);
+  }
+  .tab:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; border-radius:2px; }
+
+  .panel{ display:none; }
+  .panel[data-active="true"]{ display:block; }
+
+  .stage{
+    max-width:920px;
+    margin:0 auto;
+    display:flex;
+    gap:28px;
+    align-items:flex-start;
+    flex-wrap:wrap;
+  }
+  .stage-note{
+    flex:1 1 220px;
+    min-width:220px;
+    padding-top:18px;
+  }
+  .stage-note h3{
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-dim);
+    margin:0 0 10px;
+    font-weight:700;
+  }
+  .stage-note ul{
+    margin:0; padding:0; list-style:none;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .stage-note li{
+    font-size:13px;
+    line-height:1.5;
+    color:var(--text-dim);
+    padding-left:16px;
+    position:relative;
+  }
+  .stage-note li::before{
+    content:"—";
+    position:absolute; left:0; top:0;
+    color:var(--gold-dim);
+  }
+  .stage-note li b{ color:var(--text-main); font-weight:600; }
+
+  /* ---------- Device frame ---------- */
+  .device{
+    flex:0 0 auto;
+    width:376px;
+    max-width:100%;
+    background:var(--device-bezel);
+    border-radius:34px;
+    padding:14px;
+    box-shadow:0 30px 60px -25px rgba(0,0,0,0.5), inset 0 0 0 1px var(--device-bezel-ring);
+  }
+  .screen{
+    background:var(--bg-page);
+    border-radius:22px;
+    overflow:hidden;
+    min-height:640px;
+    display:flex;
+    flex-direction:column;
+  }
+  .statusbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 18px 4px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--text-faint);
+  }
+  .os-brand{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 18px 14px;
+  }
+  .os-brand .mark{
+    width:20px; height:20px;
+    border-radius:5px;
+    background:linear-gradient(135deg,var(--gold),#a67a1f);
+    flex:0 0 auto;
+  }
+  .os-brand .name{
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.01em;
+  }
+  .os-brand .name span{ color:var(--gold); }
+  .os-brand .model{
+    margin-left:auto;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    color:var(--text-faint);
+  }
+
+  .scroll{
+    padding:6px 16px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    overflow-y:auto;
+    flex:1;
+  }
+
+  /* status row chips */
+  .status-row{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .status-chip{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:11px;
+    color:var(--text-dim);
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:6px 9px;
+    flex:1 1 auto;
+    min-width:0;
+  }
+  .status-chip .dot{ width:7px; height:7px; border-radius:50%; flex:0 0 auto; }
+  .status-chip .dot.good{ background:var(--good); box-shadow:0 0 0 3px var(--good-wash); }
+  .status-chip .dot.warn{ background:var(--warn); box-shadow:0 0 0 3px var(--warn-wash); }
+  .status-chip b{ color:var(--text-main); font-weight:700; font-family:'IBM Plex Mono', monospace; }
+  .status-chip .lbl{ color:var(--text-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+  /* hero card */
+  .card{
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:16px;
+  }
+  .hero{
+    background:linear-gradient(160deg, var(--bg-card-raised), var(--bg-card) 70%);
+    border:1px solid var(--border);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:-40%; right:-20%;
+    width:60%; height:180%;
+    background:radial-gradient(circle, var(--gold-wash), transparent 70%);
+  }
+  .hero-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    position:relative;
+  }
+  .hero-label{
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.09em;
+    color:var(--text-dim);
+    font-weight:700;
+  }
+  .hero-badge{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    color:var(--good);
+    background:var(--good-wash);
+    border-radius:6px;
+    padding:3px 7px;
+  }
+  .hero-value{
+    font-size:40px;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    margin:10px 0 2px;
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    position:relative;
+  }
+  .hero-value .unit{ font-size:17px; color:var(--text-dim); font-weight:600; }
+  .hero-sub{
+    font-size:12px;
+    color:var(--text-faint);
+    font-family:'IBM Plex Mono', monospace;
+    position:relative;
+  }
+  .hero-sub b{ color:var(--good); }
+  .sparkline{ display:block; width:100%; height:44px; margin-top:12px; position:relative; }
+
+  .hero-foot{
+    display:flex;
+    gap:16px;
+    margin-top:14px;
+    padding-top:12px;
+    border-top:1px solid var(--border-soft);
+    position:relative;
+  }
+  .hero-foot .metric{ flex:1; }
+  .hero-foot .metric .k{ font-size:10.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.06em; }
+  .hero-foot .metric .v{ font-family:'IBM Plex Mono', monospace; font-size:14px; font-weight:600; margin-top:2px; }
+
+  /* grid of secondary cards */
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .mini-card .k{
+    font-size:11px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; font-weight:700;
+    margin-bottom:8px;
+  }
+  .mini-card .v{ font-family:'IBM Plex Mono', monospace; font-size:19px; font-weight:700; }
+  .mini-card .v .u{ font-size:12px; color:var(--text-dim); font-weight:500; }
+  .mini-card .d{ font-size:11px; color:var(--text-faint); margin-top:4px; }
+  .mini-card .d.pos{ color:var(--good); }
+
+  /* gauges */
+  .gauge-row{ display:flex; gap:10px; }
+  .gauge{
+    flex:1;
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:14px 10px 12px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .gauge svg{ width:76px; height:48px; }
+  .gauge .k{ font-size:10.5px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; margin-top:2px; font-weight:700; }
+  .gauge .v{ font-family:'IBM Plex Mono', monospace; font-size:16px; font-weight:700; margin-top:2px; }
+  .gauge .v.good{ color:var(--good); }
+  .gauge .v.warn{ color:var(--warn); }
+
+  .section-title{
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-faint);
+    font-weight:700;
+    margin:4px 2px 0;
+  }
+
+  .row-line{
+    display:flex;
+    justify-content:space-between;
+    padding:7px 0;
+    border-bottom:1px solid var(--border-soft);
+    font-size:12.5px;
+  }
+  .row-line:last-child{ border-bottom:none; }
+  .row-line .k{ color:var(--text-dim); }
+  .row-line .v{ font-family:'IBM Plex Mono', monospace; font-weight:600; }
+  .row-line .v.addr{ color:var(--gold); }
+
+  .navbar{
+    display:flex;
+    border-top:1px solid var(--border);
+    background:var(--bg-card);
+  }
+  .navbar .item{
+    flex:1;
+    text-align:center;
+    padding:10px 4px 8px;
+    font-size:9.5px;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    font-weight:700;
+  }
+  .navbar .item.active{ color:var(--gold); }
+  .navbar .item .ic{ font-size:16px; display:block; margin-bottom:3px; }
+
+  /* detail view specifics */
+  .back-row{
+    display:flex; align-items:center; gap:10px;
+    padding:2px 0 6px;
+    color:var(--text-dim);
+    font-size:12.5px;
+    font-weight:600;
+  }
+  .back-row .arrow{ color:var(--gold); font-size:16px; }
+
+  .big-gauge-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:10px 0 4px;
+  }
+  .big-gauge-wrap svg{ width:220px; height:140px; }
+  .big-gauge-num{ font-family:'IBM Plex Mono', monospace; font-size:34px; font-weight:700; margin-top:-38px; }
+  .big-gauge-num .u{ font-size:16px; color:var(--text-dim); }
+  .big-gauge-label{ font-size:11.5px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.07em; margin-top:4px; font-weight:700; }
+
+  .zone-legend{ display:flex; gap:14px; justify-content:center; margin-top:10px; }
+  .zone-legend span{ display:flex; align-items:center; gap:5px; font-size:10.5px; color:var(--text-faint); font-family:'IBM Plex Mono', monospace; }
+  .zone-legend i{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+
+  .history-chart{ width:100%; height:110px; margin-top:6px; }
+
+  .metric-detail-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:4px; }
+  .metric-detail-grid .cell .k{ font-size:10.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.05em; }
+  .metric-detail-grid .cell .v{ font-family:'IBM Plex Mono', monospace; font-size:15px; font-weight:700; margin-top:3px; }
+
+  /* states panel content */
+  .states-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:18px;
+    max-width:920px;
+    margin:0 auto;
+  }
+  .state-card{
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .state-card .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-faint);
+    padding:12px 14px 0;
+  }
+  .state-body{
+    padding:20px 18px 22px;
+    min-height:150px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    gap:10px;
+  }
+  .state-body .icon{ font-size:26px; }
+  .state-body .title{ font-weight:700; font-size:14.5px; }
+  .state-body .desc{ font-size:12px; color:var(--text-dim); max-width:34ch; line-height:1.5; }
+  .state-body .cta{
+    margin-top:4px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--bg-page);
+    background:var(--gold);
+    padding:7px 14px;
+    border-radius:7px;
+    font-weight:700;
+  }
+  .spinner{
+    width:26px; height:26px; border-radius:50%;
+    border:3px solid var(--border);
+    border-top-color:var(--gold);
+    animation:spin 0.9s linear infinite;
+  }
+  @media (prefers-reduced-motion:reduce){ .spinner{ animation:none; } }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  .confetti-dot{ position:absolute; border-radius:2px; }
+
+  @media (max-width:720px){
+    .stage{ flex-direction:column; align-items:center; }
+    .stage-note{ order:2; width:100%; max-width:376px; padding-top:20px; }
+    .device{ order:1; }
+  }
+
+  /* ---------- Controls row (theme + viewport) ---------- */
+  .controls-row{
+    max-width:920px;
+    margin:0 auto 20px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:space-between;
+  }
+  .toggle-group{
+    display:inline-flex;
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:3px;
+    gap:2px;
+  }
+  .toggle-group button{
+    appearance:none;
+    border:none;
+    background:transparent;
+    color:var(--text-dim);
+    font-family:'Manrope', sans-serif;
+    font-size:12.5px;
+    font-weight:700;
+    padding:7px 14px;
+    border-radius:7px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .toggle-group button[aria-pressed="true"]{
+    background:var(--gold);
+    color:var(--shell-bg);
+  }
+  body.theme-light .toggle-group button[aria-pressed="true"]{ color:#fff; }
+  .toggle-group button:focus-visible{ outline:2px solid var(--gold); outline-offset:1px; }
+
+  /* ---------- Desktop / web layout ---------- */
+  .device-wrap[data-view="mobile"] .browser-frame{ display:none; }
+  .device-wrap[data-view="web"] .device{ display:none; }
+  .device-wrap[data-view="mobile"] .device{ display:block; }
+  .device-wrap[data-view="web"] .browser-frame{ display:block; }
+
+  .browser-frame{
+    width:100%;
+    max-width:820px;
+    background:var(--bg-card-raised);
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 24px 48px -28px rgba(0,0,0,0.45);
+  }
+  .browser-chrome{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px;
+    border-bottom:1px solid var(--border);
+    background:var(--bg-card-raised);
+  }
+  .browser-chrome .dots{ display:flex; gap:6px; }
+  .browser-chrome .dots i{ width:9px; height:9px; border-radius:50%; background:var(--border); display:block; }
+  .browser-chrome .addr{
+    flex:1;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--text-faint);
+    background:var(--bg-page);
+    border:1px solid var(--border-soft);
+    border-radius:6px;
+    padding:5px 10px;
+    text-align:center;
+  }
+  .app-shell{ display:flex; min-height:560px; background:var(--bg-page); }
+  .app-sidebar{
+    width:180px;
+    flex:0 0 auto;
+    background:var(--bg-card);
+    border-right:1px solid var(--border);
+    padding:16px 0;
+    display:flex;
+    flex-direction:column;
+  }
+  .app-sidebar .brand{
+    display:flex; align-items:center; gap:8px;
+    padding:0 16px 16px;
+    margin-bottom:6px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .app-sidebar .brand .mark{
+    width:18px; height:18px; border-radius:5px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-dim));
+    flex:0 0 auto;
+  }
+  .app-sidebar .brand .name{ font-size:12.5px; font-weight:700; }
+  .app-sidebar .brand .name span{ color:var(--gold); }
+  .app-sidebar nav{ display:flex; flex-direction:column; gap:1px; padding:0 8px; }
+  .app-sidebar nav a{
+    display:flex; align-items:center; gap:9px;
+    padding:8px 10px;
+    border-radius:7px;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--text-dim);
+    text-decoration:none;
+  }
+  .app-sidebar nav a .ic{ font-size:13px; width:16px; text-align:center; }
+  .app-sidebar nav a.active{ background:var(--gold-wash); color:var(--gold-ink); }
+
+  .app-main{ flex:1; min-width:0; display:flex; flex-direction:column; }
+  .app-topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 22px;
+    border-bottom:1px solid var(--border);
+  }
+  .app-topbar h2{ font-size:15px; margin:0; font-weight:800; }
+  .app-topbar .meta{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-faint); }
+
+  .app-content{
+    padding:20px 22px 26px;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:14px;
+    overflow-y:auto;
+  }
+  .app-content .span2{ grid-column:span 2; }
+  .app-content .span4{ grid-column:span 4; }
+  .app-content .hero{ min-height:0; }
+  @media (max-width:640px){
+    .app-content{ grid-template-columns:repeat(2,1fr); }
+    .app-content .span2, .app-content .span4{ grid-column:span 2; }
+  }
+</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+
+<div class="review-head">
+  <div class="eyebrow">Bitmern OS &middot; Dashboard Upgrade &mdash; For Approval</div>
+  <h1>Three static mockups, gated before any build</h1>
+  <p>Per the upgrade plan: <code>2&ndash;3 mockups approved before code</code>. These are pixel comps, not working UI &mdash; built from the real <code>home.component.html</code> card set (Hashrate, Efficiency, Shares, Best Difficulty, Power, Heat, Fan, Pool, Block Header) so nothing here invents a metric the firmware doesn't already report.</p>
+  <p>Once you sign off, work starts on a branch behind the existing color-scheme system, in small reviewable PRs &mdash; not a rewrite.</p>
+</div>
+
+<div class="constraint-strip">
+  <div class="constraint-chip">Target: <b>ESP32-S3</b>, single-device screen</div>
+  <div class="constraint-chip">Base: <b>AxeOS</b> theme vars, isolated layer</div>
+  <div class="constraint-chip">Bundle: <b>no heavy chart libs</b>, inline SVG only</div>
+  <div class="constraint-chip">License: <b>GPL</b>, fork stays mergeable</div>
+</div>
+
+<div class="controls-row">
+  <div class="toggle-group" role="group" aria-label="Theme">
+    <button type="button" data-theme-btn="dark" aria-pressed="true">🌑 Dark / Gold</button>
+    <button type="button" data-theme-btn="light" aria-pressed="false">☀️ White</button>
+  </div>
+  <div class="toggle-group" role="group" aria-label="Viewport" id="viewportToggle">
+    <button type="button" data-view-btn="mobile" aria-pressed="true">📱 Mobile</button>
+    <button type="button" data-view-btn="web" aria-pressed="false">🖥️ Web</button>
+  </div>
+</div>
+
+<div class="tabs" role="tablist">
+  <button class="tab" data-tab="dashboard" role="tab" aria-selected="true"><span class="n">01</span>Dashboard</button>
+  <button class="tab" data-tab="detail" role="tab" aria-selected="false"><span class="n">02</span>Health Detail</button>
+  <button class="tab" data-tab="states" role="tab" aria-selected="false"><span class="n">03</span>Designed States</button>
+</div>
+
+<!-- ================= PANEL 1: DASHBOARD ================= -->
+<div class="panel" data-panel="dashboard" data-active="true">
+  <div class="stage">
+    <div class="device-wrap" data-view="mobile">
+    <div class="device">
+      <div class="screen">
+        <div class="statusbar"><span>09:41</span><span>solo.bitmernsolo.com</span></div>
+        <div class="os-brand">
+          <div class="mark"></div>
+          <div class="name">Bitmern<span>OS</span></div>
+          <div class="model mono">BM1370 &middot; 601</div>
+        </div>
+
+        <div class="scroll">
+          <div class="status-row">
+            <div class="status-chip"><span class="dot good"></span><span class="lbl">Online</span></div>
+            <div class="status-chip"><span class="dot good"></span><span class="lbl">Pool</span></div>
+            <div class="status-chip"><b>612M</b><span class="lbl">best</span></div>
+            <div class="status-chip"><b>14h 02m</b><span class="lbl">up</span></div>
+          </div>
+
+          <div class="card hero">
+            <div class="hero-top">
+              <div class="hero-label">Hashrate</div>
+              <div class="hero-badge">● live</div>
+            </div>
+            <div class="hero-value mono">1.21<span class="unit">TH/s</span></div>
+            <div class="hero-sub">expected 1.24 TH/s &middot; err <b>0.34%</b></div>
+            <svg class="sparkline" viewBox="0 0 300 44" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="sparkfill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#e3b341" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#e3b341" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <polyline points="0,30 20,26 40,28 60,20 80,24 100,16 120,19 140,14 160,18 180,12 200,15 220,10 240,13 260,8 280,11 300,7" fill="none" stroke="#e3b341" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <polygon points="0,30 20,26 40,28 60,20 80,24 100,16 120,19 140,14 160,18 180,12 200,15 220,10 240,13 260,8 280,11 300,7 300,44 0,44" fill="url(#sparkfill)" stroke="none"/>
+              <circle cx="300" cy="7" r="3.5" fill="#e3b341"/>
+            </svg>
+            <div class="hero-foot">
+              <div class="metric"><div class="k">10m avg</div><div class="v mono">1.19 TH/s</div></div>
+              <div class="metric"><div class="k">1hr avg</div><div class="v mono">1.22 TH/s</div></div>
+              <div class="metric"><div class="k">1d avg</div><div class="v mono">1.20 TH/s</div></div>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="card mini-card">
+              <div class="k">Efficiency</div>
+              <div class="v">18.4<span class="u">J/TH</span></div>
+              <div class="d pos">expected 17.9</div>
+            </div>
+            <div class="card mini-card">
+              <div class="k">Shares</div>
+              <div class="v">48,211</div>
+              <div class="d">0 rejected</div>
+            </div>
+          </div>
+
+          <div class="section-title">Health</div>
+          <div class="gauge-row">
+            <div class="gauge">
+              <svg viewBox="0 0 76 44">
+                <path d="M8 40 A30 30 0 0 1 68 40" fill="none" stroke="#1e2a38" stroke-width="7" stroke-linecap="round"/>
+                <path d="M8 40 A30 30 0 0 1 52 13.5" fill="none" stroke="#3ddc84" stroke-width="7" stroke-linecap="round"/>
+              </svg>
+              <div class="v good">58°C</div>
+              <div class="k">Temp</div>
+            </div>
+            <div class="gauge">
+              <svg viewBox="0 0 76 44">
+                <path d="M8 40 A30 30 0 0 1 68 40" fill="none" stroke="#1e2a38" stroke-width="7" stroke-linecap="round"/>
+                <path d="M8 40 A30 30 0 0 1 58 16" fill="none" stroke="#3ddc84" stroke-width="7" stroke-linecap="round"/>
+              </svg>
+              <div class="v good">44%</div>
+              <div class="k">Fan</div>
+            </div>
+            <div class="gauge">
+              <svg viewBox="0 0 76 44">
+                <path d="M8 40 A30 30 0 0 1 68 40" fill="none" stroke="#1e2a38" stroke-width="7" stroke-linecap="round"/>
+                <path d="M8 40 A30 30 0 0 1 63 21" fill="none" stroke="#f5a623" stroke-width="7" stroke-linecap="round"/>
+              </svg>
+              <div class="v warn">5.02V</div>
+              <div class="k">Input V</div>
+            </div>
+          </div>
+
+          <div class="section-title">Pool</div>
+          <div class="card">
+            <div class="row-line"><span class="k">URL</span><span class="v">solo.bitmernsolo.com:3333</span></div>
+            <div class="row-line"><span class="k">User</span><span class="v addr">bc1q7f…3xk2</span></div>
+            <div class="row-line"><span class="k">Difficulty</span><span class="v">2.00 M</span></div>
+            <div class="row-line"><span class="k">Response</span><span class="v">38.2 ms</span></div>
+          </div>
+        </div>
+
+        <div class="navbar">
+          <div class="item active"><span class="ic">◈</span>Home</div>
+          <div class="item"><span class="ic">⇄</span>Pool</div>
+          <div class="item"><span class="ic">▤</span>Logs</div>
+          <div class="item"><span class="ic">⚙</span>Config</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="browser-frame">
+      <div class="browser-chrome">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="addr">192.168.1.84 &middot; solo.bitmernsolo.com</span>
+      </div>
+      <div class="app-shell">
+        <div class="app-sidebar">
+          <div class="brand"><div class="mark"></div><div class="name">Bitmern<span>OS</span></div></div>
+          <nav>
+            <a class="active"><span class="ic">◈</span>Dashboard</a>
+            <a><span class="ic">🏆</span>Scoreboard</a>
+            <a><span class="ic">🕸</span>Swarm</a>
+            <a><span class="ic">▤</span>Logs</a>
+            <a><span class="ic">〰</span>System</a>
+            <a><span class="ic">⇄</span>Pool</a>
+            <a><span class="ic">📶</span>Network</a>
+            <a><span class="ic">🎨</span>Theme</a>
+            <a><span class="ic">⚙</span>Settings</a>
+          </nav>
+        </div>
+        <div class="app-main">
+          <div class="app-topbar">
+            <h2>Dashboard</h2>
+            <span class="meta mono">BM1370 &middot; uptime 14h 02m &middot; solo.bitmernsolo.com</span>
+          </div>
+          <div class="app-content">
+            <div class="card hero span2">
+              <div class="hero-top">
+                <div class="hero-label">Hashrate</div>
+                <div class="hero-badge">● live</div>
+              </div>
+              <div class="hero-value mono">1.21<span class="unit">TH/s</span></div>
+              <div class="hero-sub">expected 1.24 TH/s &middot; err <b>0.34%</b></div>
+              <svg class="sparkline" viewBox="0 0 300 44" preserveAspectRatio="none">
+                <polyline points="0,30 20,26 40,28 60,20 80,24 100,16 120,19 140,14 160,18 180,12 200,15 220,10 240,13 260,8 280,11 300,7" fill="none" stroke="#e3b341" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polygon points="0,30 20,26 40,28 60,20 80,24 100,16 120,19 140,14 160,18 180,12 200,15 220,10 240,13 260,8 280,11 300,7 300,44 0,44" fill="url(#sparkfill)" stroke="none"/>
+                <circle cx="300" cy="7" r="3.5" fill="#e3b341"/>
+              </svg>
+              <div class="hero-foot">
+                <div class="metric"><div class="k">10m avg</div><div class="v mono">1.19 TH/s</div></div>
+                <div class="metric"><div class="k">1hr avg</div><div class="v mono">1.22 TH/s</div></div>
+                <div class="metric"><div class="k">1d avg</div><div class="v mono">1.20 TH/s</div></div>
+              </div>
+            </div>
+
+            <div class="status-row" style="grid-column:span 2; flex-direction:column;">
+              <div class="status-chip"><span class="dot good"></span><span class="lbl">Online</span></div>
+              <div class="status-chip"><span class="dot good"></span><span class="lbl">Pool connected</span></div>
+              <div class="status-chip"><b>612M</b><span class="lbl">best difficulty</span></div>
+            </div>
+
+            <div class="card mini-card">
+              <div class="k">Efficiency</div>
+              <div class="v">18.4<span class="u">J/TH</span></div>
+              <div class="d pos">expected 17.9</div>
+            </div>
+            <div class="card mini-card">
+              <div class="k">Shares</div>
+              <div class="v">48,211</div>
+              <div class="d">0 rejected</div>
+            </div>
+            <div class="card mini-card">
+              <div class="k">Best Difficulty</div>
+              <div class="v">612M</div>
+              <div class="d">session 88.4M</div>
+            </div>
+            <div class="card mini-card">
+              <div class="k">Uptime</div>
+              <div class="v">14h 02m</div>
+              <div class="d">total 118d 4h</div>
+            </div>
+
+            <div class="gauge span2" style="flex-direction:row; justify-content:space-around;">
+              <div style="text-align:center;">
+                <svg viewBox="0 0 76 44"><path d="M8 40 A30 30 0 0 1 68 40" fill="none" stroke="#1e2a38" stroke-width="7" stroke-linecap="round"/><path d="M8 40 A30 30 0 0 1 52 13.5" fill="none" stroke="#3ddc84" stroke-width="7" stroke-linecap="round"/></svg>
+                <div class="v good">58°C</div><div class="k">Temp</div>
+              </div>
+              <div style="text-align:center;">
+                <svg viewBox="0 0 76 44"><path d="M8 40 A30 30 0 0 1 68 40" fill="none" stroke="#1e2a38" stroke-width="7" stroke-linecap="round"/><path d="M8 40 A30 30 0 0 1 58 16" fill="none" stroke="#3ddc84" stroke-width="7" stroke-linecap="round"/></svg>
+                <div class="v good">44%</div><div class="k">Fan</div>
+              </div>
+              <div style="text-align:center;">
+                <svg viewBox="0 0 76 44"><path d="M8 40 A30 30 0 0 1 68 40" fill="none" stroke="#1e2a38" stroke-width="7" stroke-linecap="round"/><path d="M8 40 A30 30 0 0 1 63 21" fill="none" stroke="#f5a623" stroke-width="7" stroke-linecap="round"/></svg>
+                <div class="v warn">5.02V</div><div class="k">Input V</div>
+              </div>
+            </div>
+
+            <div class="card span2">
+              <div class="k" style="font-size:11px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; font-weight:700; margin-bottom:8px;">Pool</div>
+              <div class="row-line"><span class="k">URL</span><span class="v">solo.bitmernsolo.com:3333</span></div>
+              <div class="row-line"><span class="k">User</span><span class="v addr">bc1q7f…3xk2</span></div>
+              <div class="row-line"><span class="k">Difficulty</span><span class="v">2.00 M</span></div>
+              <div class="row-line"><span class="k">Response</span><span class="v">38.2 ms</span></div>
+            </div>
+
+            <div class="card span4">
+              <div class="k" style="font-size:11px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; font-weight:700; margin-bottom:10px;">Block Header</div>
+              <div style="display:flex; gap:32px; flex-wrap:wrap;">
+                <div class="row-line" style="border:none; padding:0;"><span class="k">Height&nbsp;</span><span class="v">861,204</span></div>
+                <div class="row-line" style="border:none; padding:0;"><span class="k">Difficulty&nbsp;</span><span class="v">102.3T</span></div>
+                <div class="row-line" style="border:none; padding:0;"><span class="k">Scriptsig&nbsp;</span><span class="v">/bitmern/solo/</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="stage-note">
+      <h3>What changed vs. current AxeOS</h3>
+      <ul>
+        <li><b>One hero metric.</b> Hashrate leads with a sparkline; today it's an equal-weight card in the grid.</li>
+        <li><b>Status row</b> surfaces online/pool/best-diff/uptime at a glance &mdash; currently buried in separate cards.</li>
+        <li><b>Arc gauges</b> replace bare progress bars for temp/fan/voltage, with green/amber/red zones.</li>
+        <li>Every value shown is a <b>real field</b> from <code>info$</code> &mdash; hashRate, errorPercentage, bestDiff, temp, fanspeed, voltage, poolDifficulty.</li>
+        <li>Pool user shown truncated, matching the existing <code>sensitive-data</code> masking directive.</li>
+        <li>Use the <b>Dark / White</b> toggle above to compare both theme directions, and <b>Mobile / Web</b> to see the same cards reflow into the existing AxeOS sidebar layout at desktop width &mdash; no separate portal, same on-device page.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PANEL 2: DETAIL ================= -->
+<div class="panel" data-panel="detail">
+  <div class="stage">
+    <div class="device">
+      <div class="screen">
+        <div class="statusbar"><span>09:41</span><span>solo.bitmernsolo.com</span></div>
+        <div class="scroll">
+          <div class="back-row"><span class="arrow">‹</span> Health &middot; ASIC Temperature</div>
+
+          <div class="big-gauge-wrap">
+            <svg viewBox="0 0 220 140">
+              <path d="M14 128 A96 96 0 0 1 206 128" fill="none" stroke="#1e2a38" stroke-width="14" stroke-linecap="round"/>
+              <path d="M14 128 A96 96 0 0 1 108 32" fill="none" stroke="#3ddc84" stroke-width="14" stroke-linecap="round"/>
+              <path d="M108 32 A96 96 0 0 1 168 55" fill="none" stroke="#f5a623" stroke-width="14" stroke-linecap="round" opacity="0.35"/>
+              <path d="M168 55 A96 96 0 0 1 206 128" fill="none" stroke="#e5484d" stroke-width="14" stroke-linecap="round" opacity="0.35"/>
+            </svg>
+            <div class="big-gauge-num mono">58<span class="u">°C</span></div>
+            <div class="big-gauge-label">target 62°C &middot; auto-fan on</div>
+            <div class="zone-legend">
+              <span><i style="background:#3ddc84"></i>0&ndash;65°C</span>
+              <span><i style="background:#f5a623"></i>65&ndash;70°C</span>
+              <span><i style="background:#e5484d"></i>70°C+</span>
+            </div>
+          </div>
+
+          <div class="section-title">Last 30 min</div>
+          <div class="card">
+            <svg class="history-chart" viewBox="0 0 300 110" preserveAspectRatio="none">
+              <line x1="0" y1="27" x2="300" y2="27" stroke="#1e2a38" stroke-width="1"/>
+              <line x1="0" y1="60" x2="300" y2="60" stroke="#1e2a38" stroke-width="1"/>
+              <line x1="0" y1="93" x2="300" y2="93" stroke="#1e2a38" stroke-width="1"/>
+              <text x="4" y="23" fill="#5a6472" font-size="9" font-family="IBM Plex Mono">70°</text>
+              <text x="4" y="56" fill="#5a6472" font-size="9" font-family="IBM Plex Mono">62°</text>
+              <text x="4" y="89" fill="#5a6472" font-size="9" font-family="IBM Plex Mono">54°</text>
+              <polyline points="26,70 55,68 84,72 113,66 142,63 171,60 200,58 229,55 258,52 287,50"
+                fill="none" stroke="#3ddc84" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="287" cy="50" r="4" fill="#3ddc84"/>
+            </svg>
+          </div>
+
+          <div class="section-title">Related readings</div>
+          <div class="metric-detail-grid">
+            <div class="card cell"><div class="k">VR Temp</div><div class="v">46°C</div></div>
+            <div class="card cell"><div class="k">Fan Speed</div><div class="v">44% &middot; 4120 RPM</div></div>
+            <div class="card cell"><div class="k">ASIC Freq</div><div class="v">625 MHz</div></div>
+            <div class="card cell"><div class="k">Core V (act)</div><div class="v">1.148 V</div></div>
+          </div>
+        </div>
+        <div class="navbar">
+          <div class="item active"><span class="ic">◈</span>Home</div>
+          <div class="item"><span class="ic">⇄</span>Pool</div>
+          <div class="item"><span class="ic">▤</span>Logs</div>
+          <div class="item"><span class="ic">⚙</span>Config</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-note">
+      <h3>Why a detail view</h3>
+      <ul>
+        <li>Tapping any health gauge on the dashboard opens <b>this</b> screen &mdash; same data, more room, one metric at a time.</li>
+        <li>Zone bands on the arc are the same green/amber/red thresholds already hard-coded in <code>home.component.html</code> (70°C danger line, etc.) &mdash; just drawn instead of implied by a red warning string.</li>
+        <li>History sparkline uses a rolling client-side buffer &mdash; no new firmware storage, no added heap.</li>
+        <li>Still just cards and SVG paths; no charting dependency beyond what <code>app-chart</code> already pulls in.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PANEL 3: STATES ================= -->
+<div class="panel" data-panel="states">
+  <div class="review-head" style="margin-bottom:22px;">
+    <p style="max-width:70ch">Every card in the plan gets a designed state instead of a blank space or raw error text. These four cover the cases <code>home.component.html</code> currently handles ad hoc (e.g. the <code>power_fault</code> branch, the empty pool block) plus first-run, unified under one visual language.</p>
+  </div>
+  <div class="states-grid">
+    <div class="state-card">
+      <div class="tag">Loading</div>
+      <div class="state-body">
+        <div class="spinner"></div>
+        <div class="title">Reading ASIC telemetry&hellip;</div>
+        <div class="desc">First poll after boot. Cards show this skeleton state instead of zeros.</div>
+      </div>
+    </div>
+    <div class="state-card">
+      <div class="tag">Offline / unreachable</div>
+      <div class="state-body">
+        <div class="icon">⚠</div>
+        <div class="title" style="color:var(--warn)">Device unreachable</div>
+        <div class="desc">Lost contact with the miner's local API. Last known hashrate: 1.21 TH/s, 6 min ago.</div>
+        <div class="cta">Retry connection</div>
+      </div>
+    </div>
+    <div class="state-card">
+      <div class="tag">Error &middot; power fault</div>
+      <div class="state-body">
+        <div class="icon" style="color:var(--crit)">✕</div>
+        <div class="title" style="color:var(--crit)">Power fault detected</div>
+        <div class="desc">Replaces the current plain-text "Not available" line with a state matching the rest of the system.</div>
+      </div>
+    </div>
+    <div class="state-card">
+      <div class="tag">First run</div>
+      <div class="state-body">
+        <div class="icon">◈</div>
+        <div class="title">Welcome to Bitmern OS</div>
+        <div class="desc">No pool configured yet. Point this miner at a stratum endpoint to start hashing.</div>
+        <div class="cta">Set up pool</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="states-grid" style="margin-top:18px; grid-template-columns:1fr;">
+    <div class="state-card">
+      <div class="tag">Block found (gated celebration)</div>
+      <div class="state-body" style="position:relative; min-height:120px; background:linear-gradient(180deg, var(--gold-wash), transparent);">
+        <div class="icon">🏆</div>
+        <div class="title" style="color:var(--gold)">Block found &mdash; height 861,204</div>
+        <div class="desc">Same trigger as today's confetti overlay, restyled to the gold accent instead of green, and dismissible like the current banner.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(t){ t.setAttribute('aria-selected','false'); });
+      document.querySelectorAll('.panel').forEach(function(p){ p.removeAttribute('data-active'); });
+      tab.setAttribute('aria-selected','true');
+      document.querySelector('.panel[data-panel="' + tab.dataset.tab + '"]').setAttribute('data-active','true');
+    });
+  });
+
+  document.querySelectorAll('[data-theme-btn]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var isLight = btn.dataset.themeBtn === 'light';
+      document.body.classList.toggle('theme-light', isLight);
+      document.querySelectorAll('[data-theme-btn]').forEach(function(b){
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+    });
+  });
+
+  document.querySelectorAll('[data-view-btn]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var wrap = document.querySelector('.device-wrap');
+      wrap.setAttribute('data-view', btn.dataset.viewBtn);
+      document.querySelectorAll('[data-view-btn]').forEach(function(b){
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+    });
+  });
+</script>
